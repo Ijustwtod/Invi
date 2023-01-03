@@ -1,0 +1,89 @@
+﻿<Page x:Class="Invi.Views.MainDevices.ListDevicePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Invi.Views.MainDevices" xmlns:hc="https://handyorg.github.io/handycontrol" xmlns:viewmodels="clr-namespace:Invi.ViewModels.MainDevices"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ListDevicePage">
+
+    <Page.DataContext>
+    <viewmodels:ListDeviceViewModel/>
+    </Page.DataContext>
+    
+    <Grid>
+        <StackPanel  Orientation="Vertical" >
+            <StackPanel Margin="0,0">
+
+                <hc:Divider Content="Действия" FontSize="14" Foreground="{DynamicResource TextColor}" LineStroke="{DynamicResource IconColor}" HorizontalContentAlignment="Left" />
+                <hc:Drawer Name="DrawerRight" ShowMode="Cover">
+                    <Frame Margin="0,34,0,0" Content="{Binding CurrentPropertiesDevicePage}" Background="{DynamicResource BackColor}" BorderBrush="#00FFFFFF" Width="400" NavigationUIVisibility="Hidden"/>
+                </hc:Drawer>
+                <Frame Content="{Binding actionPageView}" BorderBrush="#00FFFFFF" Height="80" NavigationUIVisibility="Hidden"/>
+                <hc:Divider Content="Комнаты" FontSize="14" Foreground="{DynamicResource TextColor}" LineStroke="{DynamicResource IconColor}" HorizontalContentAlignment="Left" />
+                <ScrollViewer Margin="0,-10"  CanContentScroll="True" Height="1080" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible" >
+                    <hc:TransitioningContentControl TransitionMode="Top2BottomWithFade">
+                        <ListBox Margin="5"  BorderBrush="#00FFFFFF" Background="#00FFFFFF" ItemsSource="{Binding yandexRoot.rooms}" Style="{DynamicResource ListBoxCustom}" SelectedItem="{Binding SelectedRoom,Mode=TwoWay}" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                    <StackPanel  Orientation="Vertical" Margin="0,0,0,10">
+                                        <Border Style="{DynamicResource BorderStyle}" HorizontalAlignment="Stretch" BorderThickness="5,0" CornerRadius="10">
+                                        <Border.Effect>
+                                            <DropShadowEffect  BlurRadius="10" Direction="-90" RenderingBias="Quality" ShadowDepth="2"/>
+                                        </Border.Effect>
+                                            <StackPanel Margin="10,0" HorizontalAlignment="Stretch" Orientation="Vertical" >
+                                            <StackPanel Orientation="Horizontal" Height="45">
+                                                <TextBlock  Margin="15,0" FontSize="15" VerticalAlignment="Center" Style="{DynamicResource DeviceTextBlock}" Text="{Binding name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                            </StackPanel>
+                                                <hc:TransitioningContentControl TransitionMode="Top2BottomWithFade">
+                                                    <DataGrid RowBackground="{DynamicResource DeviceListCellBack}" HeadersVisibility="None" AutoGenerateColumns="False" SelectedItem="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}},Path=DataContext.SelectedDevice}" ItemsSource="{Binding richdevices}">
+                                                        <DataGrid.RowStyle>
+                                                            <Style TargetType="DataGridRow" >
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsSelected" Value="True">
+                                                                        <Setter Property="Background" Value="{DynamicResource InviColor}"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </DataGrid.RowStyle>
+                                                        <DataGrid.CellStyle>
+                                                            <Style TargetType="DataGridCell" >
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsSelected" Value="True">
+                                                                        <Setter Property="Background" Value="{DynamicResource InviColor}"/>
+                                                                        <Setter Property="BorderBrush" Value="{DynamicResource InviColor}"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </DataGrid.CellStyle>
+                                                        <DataGrid.Columns >
+                                                            <DataGridTemplateColumn Width="*"  >
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate >
+                                                                        <Grid  HorizontalAlignment="Stretch" >
+                                                                            <Image HorizontalAlignment="Left" Margin="0,0,0,0" Source="{Binding icon}" Height="25" Width="25" Stretch="Fill"/>
+                                                                            <TextBlock Margin="10,0,0,0"  HorizontalAlignment="Left" VerticalAlignment="Center"  Text="{Binding name}"/>
+                                                                            <hc:LoadingCircle HorizontalAlignment="Center" VerticalAlignment="Center" NeedHidden="True" Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}},Path=DataContext.isLoaded}" Height="25" Width="25"  Foreground="HotPink"  DotDiameter="3"/>
+                                                                            <Image HorizontalAlignment="Right" Margin="0,0,100,0"  Source="/Assets/Icons/App/lost_connection.png" Visibility="{Binding online_status.visibility}" Height="25" Width="25" />
+                                                                            <ToggleButton HorizontalAlignment="Right" Margin="0,0,50,0"  Background="Gray"  IsEnabled="{Binding online_status.state}" IsChecked ="{Binding capabilities[0].state.value ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}},Path=DataContext.OnOffLamp}" Style="{StaticResource ToggleButtonSwitch}"/>
+                                                                            <ToggleButton  HorizontalAlignment="Right" Margin="0,0,10,0" Style = "{DynamicResource ToggleButtonSettingsStyle}" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}},Path=DataContext.OpenSettingsDevice}"  IsChecked="{Binding IsOpen,ElementName=DrawerRight}" />
+                                                                        </Grid>
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                        </DataGrid.Columns>
+                                                    </DataGrid>
+                                                </hc:TransitioningContentControl>
+                                            </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    </hc:TransitioningContentControl>
+                </ScrollViewer>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

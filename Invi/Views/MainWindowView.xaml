@@ -1,0 +1,72 @@
+﻿<Page x:Class="Invi.Views.MainWindowView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Invi.Views" xmlns:viewmodels="clr-namespace:Invi.ViewModels" xmlns:hc="https://handyorg.github.io/handycontrol"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800">
+
+    <Page.DataContext>
+        <viewmodels:MainWindowViewModel/>
+    </Page.DataContext>
+
+    <Grid>
+        <Grid Style="{DynamicResource ChildGrid}" Width="80" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+            <Grid>
+                <StackPanel Panel.ZIndex="5" Margin="0,23">
+                    <Button Margin="0,5" Style="{DynamicResource ToggleButtonLeftMenu}" Command="{Binding LoadAllMainDevicePage}" VerticalAlignment="Top">
+                        <Button.ToolTip>
+                            <ToolTip Style="{DynamicResource PoptipLeftMenu}" Content="Главное меню"  HasDropShadow="True" Placement="Right">
+                            </ToolTip>
+                        </Button.ToolTip>
+                        <Image Source="/Assets/Icons/App/list.png" Width="30" Height="30"/>
+                    </Button>
+
+                    <!--<Button Margin="0,5" hc:BorderElement.CornerRadius="20" Style="{DynamicResource ToggleButtonLeftMenu}" Command="{Binding LoadAllDevicePage}"  VerticalAlignment="Top">
+                        <Button.ToolTip>
+                            <ToolTip Style="{DynamicResource PoptipLeftMenu}" Content="Главное меню"  HasDropShadow="True" Placement="Right">
+                            </ToolTip>
+                        </Button.ToolTip>
+                        <Image Source="/Assets/Icons/App/grid.png" Width="30" Height="30" />
+                    </Button>-->
+
+                    <Button Margin="0,5" hc:BorderElement.CornerRadius="20" Style="{DynamicResource ToggleButtonLeftMenu}" Command="{Binding LoadAllActionsPage}"  VerticalAlignment="Top">
+                        <Button.ToolTip>
+                            <ToolTip Style="{DynamicResource PoptipLeftMenu}" Content="Быстрые действия"  HasDropShadow="True" Placement="Right">
+                            </ToolTip>
+                        </Button.ToolTip>
+                        <Image Source="/Assets/Icons/App/play.png" Width="30" Height="30">
+
+                        </Image>
+                    </Button>
+                    <Button Margin="0,5" Style="{DynamicResource ToggleButtonLeftMenu}" Command="{Binding LoadSettings}"  VerticalAlignment="Top">
+                        <Button.ToolTip>
+                            <ToolTip Style="{DynamicResource PoptipLeftMenu}" Content="Главное меню"  HasDropShadow="True" Placement="Right">
+                            </ToolTip>
+                        </Button.ToolTip>
+                        <Image Source="/Assets/Icons/App/settings.png" Width="30" Height="30"/>
+                    </Button>
+
+                    <hc:Badge Status="Processing" Visibility="{Binding NeedUpdate}"  Background="{DynamicResource AccentColor}" Height="55" Width="50" BadgeMargin="0,0,0,0" Style="{DynamicResource BadgeSuccess}">
+                        <Button x:Name="Update"  Margin="0,5" Style="{DynamicResource ToggleButtonLeftMenu}" Command="{Binding StartUpdate}"  VerticalAlignment="Top" >
+                            <Button.ToolTip>
+                                <ToolTip Style="{DynamicResource PoptipLeftMenu}" Content="Обновление" HasDropShadow="True" Placement="Right">
+                                </ToolTip>
+                            </Button.ToolTip>
+                            <Image Source="/Assets/Icons/App/download-cloud.png" Width="30" Height="30" />
+                        </Button>
+                    </hc:Badge>
+                    <StackPanel.Effect>
+                        <DropShadowEffect ShadowDepth="0"></DropShadowEffect>
+                    </StackPanel.Effect>
+                </StackPanel>
+            </Grid>
+            <Grid.Effect>
+                <DropShadowEffect ShadowDepth="1"></DropShadowEffect>
+            </Grid.Effect>
+        </Grid>
+        <Frame Panel.ZIndex="3" Margin="85,0,0,0" BorderBrush="#00FFFFFF" BorderThickness="0" Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden">
+        </Frame>
+    </Grid>
+</Page>

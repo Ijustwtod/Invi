@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invi", "Invi\Invi.csproj", "{EE76DDA2-A47E-4490-BC48-BB676BFAABED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InviUpdate", "InviUpdate\InviUpdate.csproj", "{352DBAE4-5A9F-4DEC-9675-1D0891FA0BB4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EE76DDA2-A47E-4490-BC48-BB676BFAABED} = {EE76DDA2-A47E-4490-BC48-BB676BFAABED}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE76DDA2-A47E-4490-BC48-BB676BFAABED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE76DDA2-A47E-4490-BC48-BB676BFAABED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE76DDA2-A47E-4490-BC48-BB676BFAABED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE76DDA2-A47E-4490-BC48-BB676BFAABED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{352DBAE4-5A9F-4DEC-9675-1D0891FA0BB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{352DBAE4-5A9F-4DEC-9675-1D0891FA0BB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{352DBAE4-5A9F-4DEC-9675-1D0891FA0BB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{352DBAE4-5A9F-4DEC-9675-1D0891FA0BB4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C5F2A4F2-E8C3-4B4B-B221-C1598800D83C}
+	EndGlobalSection
+EndGlobal

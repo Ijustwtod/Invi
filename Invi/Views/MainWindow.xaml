@@ -1,0 +1,42 @@
+﻿<Window xmlns:hc="https://handyorg.github.io/handycontrol"  x:Class="Invi.MainWindow"
+        Background="#00FFFFFF"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Invi" 
+        xmlns:viewmodels="clr-namespace:Invi.ViewModels"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        Title="INVI" Height="800" Width="600">
+    <Window.DataContext>
+        <viewmodels:NavigationViewModel/>
+    </Window.DataContext>
+    <Grid Style="{DynamicResource MainGrid}">
+        <StackPanel x:Name="TitleBar" HorizontalAlignment="Stretch" Height="35" VerticalAlignment="Top" Orientation="Vertical">
+            <Border Background="AliceBlue" BorderBrush="#00FFFFFF"  MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                <Grid Style="{DynamicResource UpperPanelGrid}" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
+                    <TextBlock Text="Invi" FontSize="20" Foreground="WhiteSmoke" HorizontalAlignment="Left" FontFamily="Days" Margin="10,5">
+                        <TextBlock.Effect>
+                            <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="2"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <ToggleButton x:Name="Turn" Style="{DynamicResource UpperPanelButton}"  HorizontalAlignment="Right" Margin="55,0" Width="30" Height="30" Click="Turn_Click">
+                        <Image Source="/Assets/Icons/App/hide.png" />
+                    </ToggleButton>
+                    <ToggleButton x:Name="Exit" Style="{DynamicResource UpperPanelButton}" HorizontalAlignment="Right" Width="30" Margin="20,0" Height="30" Click="Exit_Click" >
+                        <Image Source="/Assets/Icons/App/close.png" />
+                    </ToggleButton>
+                </Grid>
+            </Border>
+            <StackPanel  Height="10" Margin="82,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Background="{DynamicResource BackColor}">
+            <StackPanel.Effect>
+                <DropShadowEffect ShadowDepth="0"></DropShadowEffect>
+            </StackPanel.Effect>
+        </StackPanel>
+        </StackPanel>
+        <Frame Panel.ZIndex="-1" BorderBrush="#00FFFFFF" BorderThickness="0" Margin="0,34,0,0" HorizontalAlignment="Stretch" Content="{Binding currentPage}" NavigationUIVisibility="Hidden"/>
+    </Grid>
+
+</Window>
+

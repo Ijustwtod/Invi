@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="InviUpdate.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ftpUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ftp://90.188.88.232/</Value>
+    </Setting>
+    <Setting Name="ftpLogin" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">user</Value>
+    </Setting>
+    <Setting Name="ftpPassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">1166</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

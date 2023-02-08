@@ -1,4 +1,5 @@
-﻿using Invi.Abilities;
+﻿using HandyControl.Controls;
+using Invi.Abilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,23 +31,29 @@ namespace Invi.ViewModels.MainDevices.DevicePropertiesViewModels
         
         public DevicePropertiesViewModel(object sender) 
         {
-            propertiesList = new List<CustomView>();
-            var obj = sender as ListDeviceViewModel;
-            var device = obj.SelectedDevice;
-            var builder = new DevicePropertiesViewBuilder(device);
-            var propertiesListp = builder.GetDeviceProperties();
-            foreach (var item in propertiesListp)
+            try
             {
-                propertiesList.Add(new CustomView() {Name = "",page = item});
+                propertiesList = new List<CustomView>();
+                var obj = sender as ListDeviceViewModel;
+                var device = obj.SelectedDevice;
+                var builder = new DevicePropertiesViewBuilder(device);
+                var propertiesListp = builder.GetDeviceProperties();
+                foreach (var item in propertiesListp)
+                {
+                    propertiesList.Add(new CustomView() { Name = "", page = item });
+                    OnPropertyChanged("propertiesList");
+                }
                 OnPropertyChanged("propertiesList");
             }
-            OnPropertyChanged("propertiesList");
+            catch (Exception e)
+            {
+                Growl.Error($"Error! {e.Message}");
+            }
         }
     }
     public class CustomView 
     {
       public string Name { get; set; }
       public Page page { get; set; }
-
     }
 }

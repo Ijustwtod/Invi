@@ -1,4 +1,5 @@
-﻿using Invi.Abilities.Base;
+﻿using Invi.Abilities;
+using Invi.Abilities.Base;
 using Invi.Abilities.Querys;
 using Invi.Models;
 using Invi.Views.MainDevices.DevicePropertiesViews;
@@ -64,7 +65,8 @@ namespace Invi.ViewModels.MainDevices
                         {
                             await Task.Factory.StartNew(() =>
                             {
-                                YandexPostQuery.ExecCommand(SelectedDevice.id, CommandsType.On_Off, "false");
+                                string postData = CommandBuilder.GetCommand(SelectedDevice.id, CommandsType.On_Off, "true");
+                                YandexPostQuery.ExecCommand(postData);
                                 OnPropertyChanged("yandexRoot");
                             });
                         }
@@ -72,7 +74,8 @@ namespace Invi.ViewModels.MainDevices
                         {
                             await Task.Factory.StartNew(() =>
                             {
-                                YandexPostQuery.ExecCommand(SelectedDevice.id, CommandsType.On_Off, "true");
+                                string postData = CommandBuilder.GetCommand(SelectedDevice.id, CommandsType.On_Off, "false");
+                                YandexPostQuery.ExecCommand(postData);
                                 OnPropertyChanged("yandexRoot");
                             });
                         }

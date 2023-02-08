@@ -1,4 +1,6 @@
 ﻿using Invi.Abilities;
+using Invi.Abilities.Sync;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -54,11 +56,29 @@ namespace Invi.Models
             }
         }
 
+        private InviContext _inviContext;
+
+        private List<InviAction> _inviActions;
+        public List<InviAction> inviActions
+        {
+            get
+            {
+                return _inviActions;
+            }
+            set
+            {
+                _inviActions = value;
+                OnPropertyChanged("inviActions");
+            }
+        }
+
         private Visibility _isLoaded;
         public Visibility isLoaded { get { return _isLoaded; } set { _isLoaded = value; OnPropertyChanged("isLoaded");}}
 
         public Context() 
         {
+            _inviContext = JsonConvert.DeserializeObject<InviContext>(Abilities.JsonAbilities.JsonReader.Read(Path.Commands));
+            inviActions = _inviContext.InviActions.Where(a=>a.IsFavorite == true).ToList();
             yandexClass = new YandexSmartHomeRoot();
            
             var yandexRootUpdaterThread = new Thread(UpdateRoot);
@@ -72,6 +92,7 @@ namespace Invi.Models
                 isLoaded = Visibility.Visible;
                 yandexRoot = GetYandexRoot.GetRoot();
                 UpdateDevices();
+                DeviceSync.DevicesSync(yandexRoot.devices);
                 isLoaded = Visibility.Hidden;
                 Thread.Sleep(60000);
             }

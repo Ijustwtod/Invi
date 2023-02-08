@@ -22,6 +22,11 @@ namespace Invi.Models
         public const string lightSocketDevice = "devices.types.light.socket";
         public const string cookingKettleDevice = "devices.types.cooking.kettle";
     }
+    internal class Path
+    {
+        public const string Commands = "commands.json";
+
+    }
     internal class DevicePropertiesConstants
     {
         public const string on_off = "devices.capabilities.on_off";
@@ -36,5 +41,7 @@ namespace Invi.Models
         public const string On_Off = "On_Off";
         public const string LightColorChange = "LightColorChange";
         public const string LightTemperatureChange = "LightTemperatureChange";
+        public const string LightBrightnessChange = "LightBrightnessChange";
+        
     }
 }

@@ -11,7 +11,7 @@ namespace Invi.Abilities.Querys
 {
     public static class YandexPostQuery
     {
-        public static void ExecCommand(string device_id, string command, string commandBody)
+        public static void ExecCommand(string command)
         {
             try
             {
@@ -30,8 +30,7 @@ namespace Invi.Abilities.Querys
 
                 using (var streamWriter = new StreamWriter(request.GetRequestStream()))
                 {
-                    string postData = CommandBuilder.GetCommand(device_id, command, commandBody);
-                    streamWriter.Write(postData);
+                    streamWriter.Write(command);
                     streamWriter.Flush();
                     streamWriter.Close();
                 }

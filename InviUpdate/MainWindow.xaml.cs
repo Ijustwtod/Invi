@@ -21,7 +21,7 @@ namespace InviUpdate
     public partial class MainWindow : Window
     {
         public Visibility UpdateEnd;
-        private string UpdateStep;
+        public string UpdateStep;
         private Thread _updateThread;
         public MainWindow()
         {
@@ -34,6 +34,9 @@ namespace InviUpdate
         {
             UpdateStep = "Проверка версии";
             var lastVersion = Utils.UpdaterUtility.GetLastBuilds();
+            if(lastVersion == null)
+                AbortUpdater();
+
             UpdateStep = "Загрузка версии";
             Utils.UpdaterUtility.DownloadLastVersion(lastVersion);
             UpdateStep = "Распаковака архива";
@@ -51,6 +54,7 @@ namespace InviUpdate
             var mainDir = new DirectoryInfo(Directory.GetCurrentDirectory());
             var mainFiles = mainDir.GetFiles().ToList();
             var mainApp = mainFiles.SingleOrDefault(f => f.Name == "Invi.exe");
+            if(mainApp != null)
             if (mainApp.Exists) 
             {
                 Process.Start(mainApp.FullName);

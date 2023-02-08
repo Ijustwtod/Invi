@@ -15,14 +15,25 @@ using System.Windows.Shapes;
 
 namespace Invi.Views.Actions
 {
-    /// <summary>
-    /// Логика взаимодействия для ActionsView.xaml
-    /// </summary>
     public partial class ActionsView : Page
     {
         public ActionsView()
         {
             InitializeComponent();
+            
+        }
+
+        private void DataGrid_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
+        {
+
+        }
+
+        private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var qwe = "qwe";
+            var asd = sender as Grid;
+            int zxc =(int)asd.ActualWidth / 110;
+           
         }
     }
 }

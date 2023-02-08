@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace InviUpdate.Utils
 {
@@ -13,28 +14,37 @@ namespace InviUpdate.Utils
     {
         public static string GetLastBuilds()
         {
-            var prop = Properties.Settings.Default;
-            var request = (FtpWebRequest)WebRequest.Create(prop.ftpUrl);
-            request.Method = WebRequestMethods.Ftp.ListDirectory;
-            request.Credentials = new NetworkCredential(prop.ftpLogin, prop.ftpPassword);
-            request.UsePassive = false;
-            using (var response = (FtpWebResponse)request.GetResponse())
+            try
             {
-                var responseStream = response.GetResponseStream();
-                using (var streamReader = new StreamReader(responseStream))
+                var prop = Properties.Settings.Default;
+                var request = (FtpWebRequest)WebRequest.Create(prop.ftpUrl);
+                request.Method = WebRequestMethods.Ftp.ListDirectory;
+                request.Credentials = new NetworkCredential(prop.ftpLogin, prop.ftpPassword);
+                request.UsePassive = false;
+
+                using (var response = (FtpWebResponse)request.GetResponse())
                 {
-                    var builds = new List<string>();
-                    string line = streamReader.ReadLine();
-                    while (!string.IsNullOrEmpty(line))
+                    var responseStream = response.GetResponseStream();
+                    using (var streamReader = new StreamReader(responseStream))
                     {
-                        builds.Add(line);
-                        line = streamReader.ReadLine();
+                        var builds = new List<string>();
+                        string line = streamReader.ReadLine();
+                        while (!string.IsNullOrEmpty(line))
+                        {
+                            builds.Add(line);
+                            line = streamReader.ReadLine();
+                        }
+                        if (builds.Count > 0)
+                            return builds.Max();
+                        else return null;
                     }
-                    if (builds.Count > 0)
-                        return builds.Max();
-                    else return "nope";
                 }
             }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return null;
         }
 
         public static void DownloadLastVersion(string fileName)
@@ -67,9 +77,9 @@ namespace InviUpdate.Utils
                 fs.Close();
                 response.Close();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                MessageBox.Show(e.Message);
             }
 
 
@@ -86,9 +96,9 @@ namespace InviUpdate.Utils
                     fileInf.Delete();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                MessageBox.Show(e.Message);
             }
         }
 
@@ -106,23 +116,26 @@ namespace InviUpdate.Utils
                     var ff = mainFiles.SingleOrDefault(f => f.Name == file.Name);
                     if (file.Name == "InviUpdate.exe"
                         || file.Name == "InviUpdate.exe.config"
-                        || file.Name == "InviUpdate.pdb"
-                        || file.Name == "Invi 2.0.exe.config")
+                        || file.Name == "InviUpdate.pdb") 
+                    {
                         file.Delete();
-                    continue;
+                        continue;
+                    }
+
+                    if (ff.Name == "commands.json")
+                        continue;
+
                     if (ff != null)
                     {
                         ff.Delete();
                     }
                     file.MoveTo(mainDir.FullName + "\\" + file.Name);
-
-                    newDir.Delete();
                 }
+                newDir.Delete();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                MessageBox.Show(e.Message);
             }
         }
 
@@ -132,6 +145,10 @@ namespace InviUpdate.Utils
             {
                 var mainDir = new DirectoryInfo(Directory.GetCurrentDirectory());
                 var newDir = new DirectoryInfo(mainDir.FullName + "/bufer");
+                if (!newDir.Exists) 
+                {
+                    return;
+                }
                 var newFiles = newDir.GetFiles().ToList();
 
                 foreach (var file in newFiles)
@@ -140,12 +157,10 @@ namespace InviUpdate.Utils
                 }
                 newDir.Delete();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                MessageBox.Show(e.Message);
             }
-
         }
-
     }
 }

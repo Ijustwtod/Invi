@@ -35,7 +35,7 @@ namespace Invi.Abilities
         private Page GetProperties_color_setting_Type(Capability capability)
         {
             if (capability.parameters.temperature_k != null && capability.parameters.color_model != null)
-                return new DevicePropertiesModulLightColorAndTemperature_k();
+                return new DevicePropertiesModulLightColorAndTemperature_k(device);
 
             return null;
         }

@@ -1,4 +1,4 @@
-﻿using Invi.ViewModels.MainDevices.DevicePropertiesViewModels;
+﻿using Invi.ViewModels.Actions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +14,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Invi.Views.MainDevices.DevicePropertiesViews.DevicePropertiesModules.Light
+namespace Invi.Views.Actions
 {
-    public partial class DevicePropertiesModulLightColorAndTemperature_k : Page
+    public partial class NewCommandView : Page
     {
-        public DevicePropertiesModulLightColorAndTemperature_k(object sender)
+        public NewCommandView(object sender)
         {
             InitializeComponent();
-            DataContext = new DeviceProperties(sender);
+            DataContext = new CommandAddViewModel(sender);
         }
     }
 }

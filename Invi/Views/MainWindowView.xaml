@@ -48,8 +48,8 @@
                         <Image Source="/Assets/Icons/App/settings.png" Width="30" Height="30"/>
                     </Button>
 
-                    <hc:Badge Status="Processing" Visibility="{Binding NeedUpdate}"  Background="{DynamicResource AccentColor}" Height="55" Width="50" BadgeMargin="0,0,0,0" Style="{DynamicResource BadgeSuccess}">
-                        <Button x:Name="Update"  Margin="0,5" Style="{DynamicResource ToggleButtonLeftMenu}" Command="{Binding StartUpdate}"  VerticalAlignment="Top" >
+                    <hc:Badge Status="Processing" Visibility="{Binding buttonUpdateVisibility}" Background="{DynamicResource AccentColor}" Height="55" Width="50" BadgeMargin="0,0,0,0" Style="{DynamicResource BadgeSuccess}">
+                        <Button x:Name="Update"  Margin="0,5" Style="{DynamicResource ToggleButtonLeftMenu}" Visibility="{Binding buttonUpdateVisibility}" Command="{Binding StartUpdate}"  VerticalAlignment="Top" >
                             <Button.ToolTip>
                                 <ToolTip Style="{DynamicResource PoptipLeftMenu}" Content="Обновление" HasDropShadow="True" Placement="Right">
                                 </ToolTip>

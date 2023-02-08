@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ColorMine, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ColorMine.1.1.3.0\lib\ColorMine.dll</HintPath>
@@ -64,7 +67,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Abilities\Actions\CreateActions.cs" />
+    <Compile Include="Abilities\Actions\ExecuteAction.cs" />
+    <Compile Include="Abilities\Actions\FillCommandBody.cs" />
     <Compile Include="Abilities\Base\DelegateСommand.cs" />
+    <Compile Include="Abilities\Base\FileUtils.cs" />
     <Compile Include="Abilities\CheckLastVersionAbility.cs" />
     <Compile Include="Abilities\ColorsUtils.cs" />
     <Compile Include="Abilities\CommandBuilder.cs" />
@@ -75,9 +82,13 @@
     <Compile Include="Abilities\GetYandexRoot.cs" />
     <Compile Include="Abilities\Querys\YandexGetQuery.cs" />
     <Compile Include="Abilities\Querys\YandexPostQuery.cs" />
+    <Compile Include="Abilities\Sync\DeviceSync.cs" />
     <Compile Include="Abilities\Updater\CheckLastVersion.cs" />
     <Compile Include="Models\Context.cs" />
+    <Compile Include="Models\InviContext.cs" />
     <Compile Include="Models\YandexUser.cs" />
+    <Compile Include="ViewModels\Actions\ActionPageViewModel.cs" />
+    <Compile Include="ViewModels\Actions\CommandAddViewModel.cs" />
     <Compile Include="ViewModels\Authorization\AuthorizationViewModel.cs" />
     <Compile Include="ViewModels\INProp.cs" />
     <Compile Include="ViewModels\MainDevices\DevicePropertiesModulesViewModels\DevicePropertiesViewModel.cs" />
@@ -87,6 +98,9 @@
     <Compile Include="ViewModels\NavigationViewModel.cs" />
     <Compile Include="Views\Actions\ActionsView.xaml.cs">
       <DependentUpon>ActionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Actions\NewCommandView.xaml.cs">
+      <DependentUpon>NewCommandView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AppMainWindow.xaml.cs">
       <DependentUpon>AppMainWindow.xaml</DependentUpon>
@@ -127,6 +141,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Actions\ActionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Actions\NewCommandView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -238,6 +256,9 @@
     <Resource Include="Assets\Icons\App\settings.png" />
     <Resource Include="Assets\Icons\App\user.png" />
     <Resource Include="Assets\Icons\App\x-square.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
